@@ -24,5 +24,6 @@ volume_du_bassin = LongueurBassin*largeurBassin*ProfondeurBassin
 contenance_bassin = volume_du_bassin*1000
 #print("volume du bassin = ",volume_du_bassin,"m3 soit une contenance de : ",contenance_bassin," litres d'eau")
 print("Il faut ajouter",int((Salinite_demandee-Salinite_relevee)*contenance_bassin/1000),"Kg de sel pour ce bassin de",volume_du_bassin,"m3")
+print("cette valeur est arrondie au Kg inférieur")
 
 
