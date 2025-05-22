@@ -1,0 +1,59 @@
+from music21 import stream, note, chord, metadata, meter, key, tempo
+from pathlib import Path
+
+# Création du fichier Guitar Pro de deux progressions avec double stops corrigés
+
+# Fonction pour créer un double-stop
+def double_stop(pitch1, pitch2, duration=1):
+    n1 = note.Note(pitch1)
+    n2 = note.Note(pitch2)
+    return chord.Chord([n1, n2], quarterLength=duration)
+
+# Création du flux principal
+s = stream.Score()
+s.append(metadata.Metadata())
+s.metadata.title = "Double Stops - Clapton & Delpech"
+s.metadata.composer = "Arrangement pour guitare"
+
+# Partie 1 : Over the Rainbow (E, C#9, F#m, B9)
+part1 = stream.Part()
+part1.append(tempo.MetronomeMark(number=70))
+part1.append(key.KeySignature(4))  # E major
+part1.append(meter.TimeSignature('4/4'))
+
+# E major : G# - B
+part1.append(double_stop('G#4', 'B4'))
+# C#9 approximation : C# - E
+part1.append(double_stop('C#4', 'E4'))
+# F#m : F# - A
+part1.append(double_stop('F#4', 'A4'))
+# B9 approximation : B - D#
+part1.append(double_stop('B3', 'D#4'))
+
+# Partie 2 : Quand j’étais chanteur (G, Bm, Em, Am, D)
+part2 = stream.Part()
+part2.append(tempo.MetronomeMark(number=90))
+part2.append(key.KeySignature(1))  # G major
+part2.append(meter.TimeSignature('4/4'))
+
+# G : G - B
+part2.append(double_stop('G3', 'B3'))
+# Bm : B - D
+part2.append(double_stop('B3', 'D4'))
+# Em : E - G
+part2.append(double_stop('E4', 'G4'))
+# Am : A - C
+part2.append(double_stop('A3', 'C4'))
+# D : D - F#
+part2.append(double_stop('D4', 'F#4'))
+
+# Ajout des parties au score
+s.append(part1)
+s.append(part2)
+
+# Sauvegarde au format MusicXML, puis conversion en fichier .gp (Guitar Pro) n'est pas possible ici,
+# donc on exportera en format MusicXML que tu pourras importer dans Guitar Pro.
+output_path = Path("/mnt/data/double_stops_arrangement.musicxml")
+s.write("musicxml", fp=output_path)
+
+output_path.name
